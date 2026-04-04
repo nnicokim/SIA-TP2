@@ -1,0 +1,29 @@
+# Archivo de configuración del Algoritmo Genético
+
+image:
+  path: "images/polonia.png"
+  resolution: [64, 64]
+
+algorithm:
+  pop_size: 50
+  n_triangles: 50
+  generations: 10000
+  target_fitness: 1.0   # Si el fitness alcanza este valor, se frena el algoritmo (poner 0 para no usar)
+
+  selection:
+    method: "elite"  # elite/roulette
+
+  crossover:
+    method: "one_point"
+
+  mutation:
+    method: "uniform" # gene/uniform/nouniform
+    rate: 0.1
+
+  survival:
+    method: "additive" # additive/exclusive
+
+output:
+  dir: "results"         # Carpeta donde se guardarán los resultados
+  save_step: 0          # Guardar imagen cada N generaciones (0 para no guardar imágenes intermedias)
+
