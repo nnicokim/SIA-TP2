@@ -1,4 +1,4 @@
-from methods.selection import EliteSelection, RouletteSelection
+from methods.selection import EliteSelection, RouletteSelection, BoltzmannSelection,UniversalSelection, RankingSelection, DeterministicTournamentSelection, ProbabilisticTournamentSelection
 from methods.crossover import OnePointCrossover
 from methods.mutation import GeneMutation, UniformMutation, NoUniformMutation
 from methods.survival import AdditiveSurvival, ExclusiveSurvival
@@ -11,7 +11,22 @@ class MethodFactory:
             return EliteSelection()
         elif method_name == "roulette" or method_name == "ruleta":
             return RouletteSelection()
-        # Agregar aquí los futuros Universal, Torneos, etc.
+        elif method_name == "boltzmann":
+            t0 = kwargs.get('t0', 100.0)
+            tc = kwargs.get('tc', 1.0)
+            return BoltzmannSelection(t0, tc)
+        elif method_name == "universal":
+            return UniversalSelection()
+        elif method_name == "ranking":
+            return RankingSelection()
+        elif method_name == "deterministic_tournament":
+            tourney_size = kwargs.get('tournament_size', 3)
+            return DeterministicTournamentSelection(tourney_size)
+        elif method_name == "probabilistic_tournament":
+            tourney_size = kwargs.get('tournament_size', 2)
+            threshold = kwargs.get('threshold', 0.75)
+            return ProbabilisticTournamentSelection(tourney_size, threshold)
+            
         raise ValueError(f"Selection method '{method_name}' not supported.")
 
     @staticmethod
