@@ -2,19 +2,24 @@
 
 ### ALGORITMO GENETICO: APROXIMACION DE IMAGENES CON TRIANGULOS
 
-Este proyecto implementa un motor de Algoritmos Geneticos (AG) diseñado para replicar una imagen objetivo utilizando una cantidad limitada de triangulos superpuestos y semitransparentes. Es la solucion correspondiente al Trabajo Practico de Algoritmos Geneticos para la materia Sistemas de Inteligencia Artificial.
+Este proyecto implementa un motor de Algoritmos Genéticos (AG) diseñado para replicar una imagen objetivo utilizando una cantidad limitada de triángulos superpuestos y semitransparentes. Es la solución correspondiente al Trabajo Práctico de Algoritmos Geneticos para la materia Sistemas de Inteligencia Artificial.
 
 ### REQUISITOS PREVIOS
-Para ejecutar este proyecto, necesitas tener instalado Python 3.8 o superior. Ademas, el motor utiliza algunas librerias externas estandar para el manejo matematico, procesamiento de imagenes y graficacion.
+
+Para ejecutar este proyecto, se necesita tener instalado Python 3.8 o superior. Además, el motor utiliza algunas librerias externas estandar para el manejo matemático, procesamiento de imágenes y graficación.
 
 Para instalar todas las dependencias necesarias ejecutar el siguiente comando en tu terminal:
+
 ```bash
 pip install numpy Pillow matplotlib pyyaml
 ```
-### CONFIGURACION (Input)
-El programa no requiere parametros extensos por linea de comandos. En su lugar, toda la configuracion se centraliza en un archivo *config.yaml* que debe estar ubicado en la raiz del proyecto.
 
-Asegurate de configurar la ruta de tu imagen de prueba y los hiperparametros antes de ejecutar. Ejemplo de la estructura de *config.yaml*:
+### CONFIGURACION (Input)
+
+El programa no requiere parametros extensos por linea de comandos. En su lugar, toda la configuración se centraliza en un archivo _config.yaml_ que debe estar ubicado en la raíz del proyecto.
+
+Hay que segurarse de configurar la ruta de tu imagen de prueba y los hiperparametros antes de ejecutar. Ejemplo de la estructura de _config.yaml_:
+
 ```yaml
 image:
     path: "test_image.png"  (Ruta a la imagen objetivo)
@@ -44,46 +49,43 @@ output:
     save_step: 50           (Guardar imagen cada X generaciones)
 ```
 
-###  COMO EJECUTAR EL PROGRAMA
-El proyecto cuenta con dos modos de ejecucion principales:
+### COMO EJECUTAR EL PROGRAMA
+
+El proyecto cuenta con dos modos de ejecución principales:
 
 - Motor Principal (main.py)
-Este es el flujo principal del programa. Ejecuta el algoritmo genetico basandose enteramente en las configuraciones del *config.yaml* y exporta visualmente la evolucion del mejor individuo.
-    - Comando: 
-        ```bash
+  Este es el flujo principal del programa. Ejecuta el algoritmo genético basandose enteramente en las configuraciones del _config.yaml_ y exporta visualmente la evolución del mejor individuo. - Comando:
+  `bash
         python main.py
-        ```
+        `
 
-    - Salida: Mostrara por consola el progreso del fitness y guardara las imagenes intermedias .png del mejor individuo en la carpeta definida en output.dir (por defecto /results).
+      - Salida: Mostrará por consola el progreso del fitness y guardara las imagenes intermedias .png del mejor individuo en la carpeta definida en output.dir (por defecto /results).
 
 - Pruebas y Metricas (benchmark.py)
-Este script esta hecho para evaluar y comparar el rendimiento de los distintos metodos implementados (Seleccion, Cruza, Mutacion y Supervivencia).
-    - **Comando**:
-        ```bash
+  Este script esta hecho para evaluar y comparar el rendimiento de los distintos métodos implementados (Selección, Cruza, Mutacion y Supervivencia). - **Comando**:
+  `bash
         python benchmark.py
-        ```
-    - **Salida**: Aisla cada categoria de operadores y prueba todos sus metodos manteniendo el resto constante. Genera graficos de linea (Fitness vs. Generaciones) y los guarda en sus respectivas subcarpetas dentro del directorio **figs/**. 
+        ` - **Salida**: Aisla cada categoria de operadores y prueba todos sus metodos manteniendo el resto constante. Genera graficos de linea (Fitness vs. Generaciones) y los guarda en sus respectivas subcarpetas dentro del directorio **figs/**.
 
 ### ESTRUCTURA DEL PROYECTO
 
-- *main.py*: Punto de entrada principal del algoritmo.
+- _main.py_: Punto de entrada principal del algoritmo.
 
-- *benchmark.py*: Script generador de metricas y graficos comparativos.
+- _benchmark.py_: Script generador de metricas y gráficos comparativos.
 
-- *Engine.py*: Contiene el ciclo evolutivo y el calculo de aptitud (Fitness por ECM).
+- _Engine.py_: Contiene el ciclo evolutivo y el calculo de aptitud (Fitness por ECM).
 
-- *Individual.py*: Define la representacion genetica y la capacidad de renderizarse a imagen.
+- _Individual.py_: Define la representación genética y la capacidad de renderizarse a imagen.
 
-- *config.yaml*: Archivo de configuracion central.
+- _config.yaml_: Archivo de configuración central.
 
 - **methods/**: Directorio que contiene las interfaces y logicas de los operadores.
+  - _factory.py_: Patron Factory para instanciar métodos dinamicamente.
 
-    - *factory.py*: Patron Factory para instanciar metodos dinamicamente.
+  - _selection.py_: Métodos de selección.
 
-    - *selection.py*: Metodos de seleccion.
+  - _crossover.py_: Métodos de cruza.
 
-    - *crossover.py*: Metodos de cruza.
+  - _mutation.py_: Métodos de mutación.
 
-    - *mutation.py*: Metodos de mutacion.
-
-    - *survival.py*: Metodos de reemplazo generacional.
+  - _survival.py_: Métodos de reemplazo generacional.
