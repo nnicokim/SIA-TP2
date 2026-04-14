@@ -24,16 +24,6 @@ OPTIONS = {
     'survival': ['additive', 'exclusive']
 }
 
-def smooth(y, box_pts):
-    """Aplica una media móvil para suavizar curvas ruidosas"""
-    if len(y) < box_pts:
-        return y
-    box = np.ones(box_pts)/box_pts
-    y_smooth = np.convolve(y, box, mode='valid')
-
-    padding = np.full(box_pts - 1, y_smooth[0]) if len(y_smooth) > 0 else []
-    return np.concatenate((padding, y_smooth))
-
 def load_config(path="config.yaml"):
     try:
         with open(path, 'r', encoding='utf-8') as f:
@@ -172,18 +162,14 @@ def main():
                 # Registramos fitness final para el plot de barras
                 final_fitnesses[method] = history[-1]
                 
-                # Suavizamos la línea (ej: ventana de 5% de las generaciones)
-                window_size = max(5, int(len(history) * 0.05))
-                smoothed_history = smooth(history, window_size)
-                
                 # Dibujamos iterativamente la línea en el plot
                 # Usamos un alpha=0.9 para que se vean bien
-                plt.plot(smoothed_history, label=f'{method} (Final: {history[-1]:.5f})', linewidth=2.0, alpha=0.8)
+                plt.plot(history, label=f'{method} (Final: {history[-1]:.5f})', linewidth=2.0, alpha=0.8)
                 
 
                 
             # --- GUARDAR GRÁFICO DE LÍNEAS (HISTORIAL) ---
-            plt.title(f'Comparativa de {category.upper()} (Media Móvil)\nen imagen "{img_name}"', fontsize=14)
+            plt.title(f'Comparativa de {category.upper()}\nen imagen "{img_name}"', fontsize=14)
             plt.xlabel('Generaciones', fontsize=12)
             plt.ylabel('Fitness', fontsize=12)
             plt.grid(True, linestyle='--', alpha=0.7)
